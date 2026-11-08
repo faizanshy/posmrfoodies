@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Food POS & Thermal Billing</title>
+    <title>MR.FOODIE FAST FOOD - Web POS</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,18 +13,18 @@
         }
 
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #000000;
+            color: #ffffff;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Layout */
+        /* Sidebar / Billing Panel */
         .sidebar {
-            width: 350px;
-            background: #1e293b;
-            border-right: 1px solid #334155;
+            width: 360px;
+            background: #000000;
+            border-right: 1px solid #333333;
             display: flex;
             flex-direction: column;
             padding: 20px;
@@ -34,14 +34,14 @@
             flex: 1;
             padding: 25px;
             overflow-y: auto;
-            background: #0f172a;
+            background: #000000;
         }
 
         /* Branding & Logo Section */
         .brand-section {
             text-align: center;
             margin-bottom: 20px;
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid #333333;
             padding-bottom: 15px;
         }
 
@@ -50,31 +50,34 @@
             height: 70px;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid #00F90A;
+            border: 2px solid #ffffff;
             margin-bottom: 8px;
+            background: #000;
         }
 
         .brand-name {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #00F90A;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
 
         /* Cart / Bill Section */
         .cart-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 10px;
             font-weight: 600;
+            color: #ffffff;
         }
 
         .cart-items {
             flex: 1;
             overflow-y: auto;
-            border: 1px solid #334155;
+            border: 1px solid #333333;
             border-radius: 6px;
             padding: 10px;
             margin-bottom: 15px;
-            background: #0f172a;
+            background: #000000;
         }
 
         .cart-item {
@@ -82,8 +85,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid #222222;
             font-size: 0.9rem;
+            color: #ffffff;
         }
 
         .cart-total {
@@ -92,14 +96,16 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
-            background: #1e293b;
+            background: #000000;
             padding: 12px;
             border-radius: 6px;
+            border: 1px solid #333333;
+            color: #ffffff;
         }
 
         .btn-print {
-            background-color: #00F90A;
-            color: #000;
+            background-color: #ffffff;
+            color: #000000;
             border: none;
             padding: 12px;
             font-size: 1rem;
@@ -110,14 +116,63 @@
         }
 
         .btn-print:hover {
-            background-color: #00d408;
+            background-color: #cccccc;
+        }
+
+        /* Top Bar & Add Item Form */
+        .top-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #000000;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333333;
+        }
+
+        .add-item-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .add-item-form input {
+            background: #000000;
+            border: 1px solid #555555;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .add-item-form input:focus {
+            border-color: #ffffff;
+        }
+
+        .btn-add {
+            background: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-add:hover {
+            background: #ffffff;
+            color: #000000;
         }
 
         /* Menu Grid */
         .section-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-bottom: 15px;
             font-weight: 600;
+            color: #ffffff;
         }
 
         .menu-grid {
@@ -127,36 +182,61 @@
         }
 
         .menu-card {
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: #000000;
+            border: 1px solid #333333;
             border-radius: 8px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
+            position: relative;
             transition: 0.2s;
         }
 
         .menu-card:hover {
-            border-color: #00F90A;
+            border-color: #ffffff;
             transform: translateY(-2px);
+            background: #111111;
         }
 
         .menu-card h4 {
             font-size: 1rem;
             margin-bottom: 8px;
+            color: #ffffff;
         }
 
         .menu-card p {
-            color: #94a3b8;
+            color: #ffffff;
             font-size: 0.9rem;
+            font-weight: bold;
         }
 
-        /* Hidden Thermal Print Receipt Styles */
+        .btn-delete-item {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: transparent;
+            border: none;
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .menu-card:hover .btn-delete-item {
+            display: block;
+        }
+
+        /* Thermal Receipt Specific Styles */
         #print-receipt {
             display: none;
         }
 
         @media print {
+            @page {
+                margin: 0;
+                size: auto;
+            }
             body * {
                 visibility: hidden;
             }
@@ -168,7 +248,7 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 72mm; /* Standard Thermal Paper Width */
+                width: 72mm;
                 font-family: 'Courier New', Courier, monospace;
                 color: #000;
                 background: #fff;
@@ -177,8 +257,8 @@
             .receipt-logo {
                 display: block;
                 margin: 0 auto 5px auto;
-                max-width: 40px;
-                max-height: 40px;
+                max-width: 50px;
+                max-height: 50px;
             }
         }
     </style>
@@ -188,16 +268,13 @@
     <!-- Sidebar / Billing Panel -->
     <div class="sidebar">
         <div class="brand-section">
-            <!-- Yahan aap apna logo image link ya local path daal sakte hain -->
             <img src="https://via.placeholder.com/70" alt="Logo" class="brand-logo" id="logo-preview">
-            <div class="brand-name">SMUN FAST FOOD</div>
-            <input type="file" id="logo-input" accept="image/*" style="margin-top: 8px; font-size: 0.75rem; color: #94a3b8;">
+            <div class="brand-name">MR.FOODIE FAST FOOD</div>
+            <input type="file" id="logo-input" accept="image/*" style="margin-top: 8px; font-size: 0.75rem; color: #aaaaaa;">
         </div>
 
         <div class="cart-title">Current Order / Token</div>
-        <div class="cart-items" id="cart-items-container">
-            <!-- Items added dynamically -->
-        </div>
+        <div class="cart-items" id="cart-items-container"></div>
 
         <div class="cart-total">
             <span>Total:</span>
@@ -209,17 +286,24 @@
 
     <!-- Main Content / Fast Food Menu -->
     <div class="main-content">
-        <div class="section-title">Fast Food Menu</div>
-        <div class="menu-grid" id="menu-grid">
-            <!-- Dynamic Menu Items -->
+        <div class="top-action-bar">
+            <div style="font-size: 1rem; font-weight: bold; color: #ffffff;">Manage Menu Items</div>
+            <div class="add-item-form">
+                <input type="text" id="new-item-name" placeholder="Item Name">
+                <input type="number" id="new-item-price" placeholder="Price (Rs)" style="width: 100px;">
+                <button class="btn-add" onclick="addNewMenuItem()">+ Add Item</button>
+            </div>
         </div>
+
+        <div class="section-title">Fast Food Menu</div>
+        <div class="menu-grid" id="menu-grid"></div>
     </div>
 
-    <!-- Hidden Thermal Printer Layout (80mm / 58mm) -->
+    <!-- Hidden Thermal Printer Slip -->
     <div id="print-receipt">
         <div style="text-align: center;">
             <img src="" id="receipt-logo-img" class="receipt-logo" style="display:none;">
-            <h3 style="margin: 0; font-size: 14px;">SMUN FAST FOOD</h3>
+            <h3 style="margin: 0; font-size: 14px;">MR.FOODIE FAST FOOD</h3>
             <p style="font-size: 10px; margin: 2px 0;">Token Slip # <span id="r-token">101</span></p>
             <p style="font-size: 10px; margin: 2px 0;" id="r-date"></p>
             <p style="border-bottom: 1px dashed #000; margin: 5px 0;"></p>
@@ -232,9 +316,7 @@
                     <th style="text-align: right;">Price</th>
                 </tr>
             </thead>
-            <tbody id="receipt-items-body">
-                <!-- Print items injected here -->
-            </tbody>
+            <tbody id="receipt-items-body"></tbody>
         </table>
         <p style="border-bottom: 1px dashed #000; margin: 5px 0;"></p>
         <div style="font-size: 12px; font-weight: bold; display: flex; justify-content: space-between;">
@@ -243,41 +325,79 @@
         </div>
         <div style="text-align: center; font-size: 10px; margin-top: 10px;">
             <p>Thank you for visiting!</p>
-            <p>Powered by Smundrinks POS</p>
+            <p>Mr. Foodie POS System</p>
         </div>
     </div>
 
     <script>
-        // Fast Food Menu Data
-        const menuItems = [
+        const defaultMenu = [
             { id: 1, name: "Zinger Burger", price: 450 },
             { id: 2, name: "Chicken Burger", price: 300 },
             { id: 3, name: "Large Pizza", price: 1200 },
             { id: 4, name: "French Fries", price: 180 },
-            { id: 5, name: "Cold Drink (500ml)", price: 120 },
-            { id: 6, name: "Hot Wings (6 pcs)", price: 350 },
-            { id: 7, name: "Zinger Roll", price: 280 }
+            { id: 5, name: "Cold Drink (500ml)", price: 120 }
         ];
 
+        let menuItems = JSON.parse(localStorage.getItem('mr_foodie_menu')) || defaultMenu;
         let cart = [];
-        let tokenNumber = 101;
+        let tokenNumber = parseInt(localStorage.getItem('mr_foodie_token')) || 101;
+        let savedLogo = localStorage.getItem('mr_foodie_logo') || '';
 
-        // Render Menu Items
-        const menuGrid = document.getElementById('menu-grid');
-        menuItems.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'menu-card';
-            card.innerHTML = `
-                <h4>${item.name}</h4>
-                <p>Rs. ${item.price}</p>
-            `;
-            card.onclick = () => addToCart(item);
-            menuGrid.appendChild(card);
-        });
+        if (savedLogo) {
+            document.getElementById('logo-preview').src = savedLogo;
+            document.getElementById('receipt-logo-img').src = savedLogo;
+            document.getElementById('receipt-logo-img').style.display = 'block';
+        }
 
-        // Add to Cart Logic
+        function saveMenuToStorage() {
+            localStorage.setItem('mr_foodie_menu', JSON.stringify(menuItems));
+        }
+
+        function renderMenu() {
+            const menuGrid = document.getElementById('menu-grid');
+            menuGrid.innerHTML = '';
+            menuItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                card.innerHTML = `
+                    <button class="btn-delete-item" onclick="deleteMenuItem(event, ${item.id})">✕</button>
+                    <h4>${item.name}</h4>
+                    <p>Rs. ${item.price}</p>
+                `;
+                card.onclick = () => addToCart(item);
+                menuGrid.appendChild(card);
+            });
+        }
+
+        function addNewMenuItem() {
+            const nameInput = document.getElementById('new-item-name');
+            const priceInput = document.getElementById('new-item-price');
+            const name = nameInput.value.trim();
+            const price = parseFloat(priceInput.value);
+
+            if (!name || isNaN(price) || price <= 0) {
+                alert('Barah-e-karam Sahi Naam aur Price likhein!');
+                return;
+            }
+
+            const newItem = { id: Date.now(), name: name, price: price };
+            menuItems.push(newItem);
+            saveMenuToStorage();
+            renderMenu();
+
+            nameInput.value = '';
+            priceInput.value = '';
+        }
+
+        function deleteMenuItem(event, id) {
+            event.stopPropagation();
+            menuItems = menuItems.filter(item => item.id !== id);
+            saveMenuToStorage();
+            renderMenu();
+        }
+
         function addToCart(item) {
-            const existing = cart.find(cartItem => cartItem.id === item.id);
+            const existing = cart.find(c => c.id === item.id);
             if (existing) {
                 existing.qty += 1;
             } else {
@@ -286,14 +406,13 @@
             updateCartUI();
         }
 
-        // Update Cart UI
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
             container.innerHTML = '';
             let total = 0;
 
             if (cart.length === 0) {
-                container.innerHTML = '<p style="color: #64748b; text-align: center; margin-top: 20px;">No items selected</p>';
+                container.innerHTML = '<p style="color: #777; text-align: center; margin-top: 20px;">No items selected</p>';
                 document.getElementById('grand-total').innerText = 'Rs. 0';
                 return;
             }
@@ -312,28 +431,27 @@
             document.getElementById('grand-total').innerText = `Rs. ${total}`;
         }
 
-        // Logo Upload Handler
         document.getElementById('logo-input').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    document.getElementById('logo-preview').src = event.target.result;
-                    document.getElementById('receipt-logo-img').src = event.target.result;
+                    const dataUrl = event.target.result;
+                    document.getElementById('logo-preview').src = dataUrl;
+                    document.getElementById('receipt-logo-img').src = dataUrl;
                     document.getElementById('receipt-logo-img').style.display = 'block';
+                    localStorage.setItem('mr_foodie_logo', dataUrl);
                 }
                 reader.readAsDataURL(file);
             }
         });
 
-        // Print Receipt Function
         function printReceipt() {
             if (cart.length === 0) {
-                alert('Pehle kuch items select karein!');
+                alert('Pehle items select karein!');
                 return;
             }
 
-            // Populate thermal receipt container
             const rBody = document.getElementById('receipt-items-body');
             rBody.innerHTML = '';
             let total = 0;
@@ -355,14 +473,15 @@
             const now = new Date();
             document.getElementById('r-date').innerText = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
-            // Trigger window print dialog (Sends directly to thermal printer if set as default)
             window.print();
 
-            // Increment Token Number for next customer
             tokenNumber++;
+            localStorage.setItem('mr_foodie_token', tokenNumber);
             cart = [];
             updateCartUI();
         }
+
+        renderMenu();
     </script>
 </body>
 </html>
